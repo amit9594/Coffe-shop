@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<span style="display: inline-block;"><b><h2>Confirmed cases:</h2></b></span>
+	<span style="display: inline-block;"  id="output"></span>
+	<p></p>
+	<input id="weather">
+	<button onclick="captureapidata()">Submit</button>
+	<script type="text/javascript">
+		function captureapidata()
+		{
+		
+		document.getElementById("output").style.color = "red";
+		document.getElementById("output").style.fontSize = "25px";
+		city = document.getElementById("weather").value;
+			
+		httpRequest = new XMLHttpRequest();
+		url= "https://api.covid19api.com/country/" + city;
+		httpRequest.open("GET" , url);
+		httpRequest.send();
+		
+		httpRequest.onreadystatechange = function()
+		{ 
+			if (this.readyState == 4 && this.status == 200)
+			{
+				user_info = JSON.parse(this.responseText);
+				document.getElementById("output").innerHTML = user_info.reverse()[0].Confirmed;
+				
+			}
+		} 
+		}
+
+		function update_img(){
+			document.getElementById("myimg").src = "mocha.png"
+			document.getElementById("myimg").style.height = "200px"
+		}
+	</script>
+</body>
+</html>
+
